@@ -4,15 +4,18 @@ const Schema = mongoose.Schema;
 
 
 const orderInformationSchema = new Schema({
-    orderNumber: String,
-    date: String,
-    salesPerson: String,
-    inchargePerson: String,
-    clientDetails: String,
-    deliveryDate: String,
-    status: String,
-    finalStatus: String,
-  });
+  orderNumber: String,
+  date: String,
+  salesPerson: String,
+  inchargePerson: String,
+  clientDetails: String,
+  deliveryDate: String,
+  status: String,
+  printingstatus: String,
+  laminationstatus: String,
+  padmakingstatus: String
+});
+
   
   const UserSchema = new Schema({
     orderInformation: [orderInformationSchema],

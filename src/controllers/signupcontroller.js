@@ -72,50 +72,58 @@ const userController = {
 
   async addOrderDetails(req, res) {
     try {
-      const { email } = req.body;
-      const {
-        orderNumber,
-        date,
-        salesPerson,
-        inchargePerson,
-        clientDetails,
-        deliveryDate,
-        status,
-      } = req.body;
-  
-      // Check if the email is provided
-      if (!email) {
-        return res.status(400).json({ message: 'Email is required in the request body' });
-      }
-  
-      // Find the user by email
-      const user = await User.findOne({ email });
-  
-      // Check if the user exists
-      if (!user) {
-        return res.status(404).json({ message: 'User not found' });
-      }
-  
-      // Add order information to the array
-      user.orderInformation.push({
-        orderNumber,
-        date,
-        salesPerson,
-        inchargePerson,
-        clientDetails,
-        deliveryDate,
-        status,
-      });
-  
-      // Save the user with the updated order information
-      await user.save();
-  
-      res.status(201).json({ message: 'Order details added successfully', user });
+        const { email } = req.body;
+        const {
+            orderNumber,
+            date,
+            salesPerson,
+            inchargePerson,
+            clientDetails,
+            deliveryDate,
+            status,
+            printingstatus,
+            laminationstatus,
+            padmakingstatus
+        } = req.body;
+        console.log(req.body)
+
+        // Check if the email is provided
+        if (!email) {
+            return res.status(400).json({ message: 'Email is required in the request body' });
+        }
+
+        // Find the user by email
+        const user = await User.findOne({ email });
+
+        // Check if the user exists
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        // Add order information to the array with stages
+        user.orderInformation.push({
+            orderNumber,
+            date,
+            salesPerson,
+            inchargePerson,
+            clientDetails,
+            deliveryDate,
+            status,
+            printingstatus,
+            laminationstatus,
+            padmakingstatus
+        });
+
+        // Save the user with the updated order information
+        await user.save();
+        console.log("user",user)
+        res.status(201).json({ message: 'Order details added successfully', user });
     } catch (error) {
-      console.error('Error in adding order details:', error);
-      res.status(400).json({ message: 'Error in adding order details', error: error.message });
+        console.error('Error in adding order details:', error);
+        res.status(400).json({ message: 'Error in adding order details', error: error.message });
     }
-  },
+},
+
   async getAllUsers(req, res) {
     try {
       // Find all users
